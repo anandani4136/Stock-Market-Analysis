@@ -8,3 +8,24 @@ description: |
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+## About Me
+
+Greetings! My Name is **Ronit Anandani**. I am a senior at Conant High School and I look towards exploring the world of Data Science using R. In fact, this website was made using R!
+
+## About the Project
+*The Impact of COVID-19 on the Stock Market and its Sectors*
+
+This project analyzes the effects of COVID-19 upon stock market sectors like technology, commerce, and others
+
+### Goals
+
+* Demonstrate the immediate and long-term impacts of the pandemic
+
+* Understand which markets had the impact that they did
+
+  + Based off of trends and reasoning
+  
+“This is data science”  
+~ Preceptor
+
+[Kane’s Free High School Data Science Bootcamp](https://bootcamp.davidkane.info/)

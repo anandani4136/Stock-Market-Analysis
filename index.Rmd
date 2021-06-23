@@ -1,7 +1,11 @@
 ---
 title: "Stock Market Analysis"
 description: |
-  Welcome to the website. I hope you enjoy it!
+  The Stock Market is a wonderful way for us to undertsand the financial impacts that global events can have. However, closer observation can revealed the nuances in behavior in the stock market. Not all industries are craeted equal, so observing sectors of the market and their individuals reactions can help us understand how certain global events can be especially detrimental to specific industries, so as to inform investors of potential patterns in the market if such global events repeat in the future.
+  
+  This website analyzes the effects of the COVID-19 Pandemic and the market reactions to different stages of the pandemic, such as when the pandemic was officially declared, and when vaccinations began for the Coronavirus disease. The dates utilized are approximate, but they provide insight into changes in the market at specific points in time during the pandemic. 
+  
+  
 site: distill::distill_website
 ---
 

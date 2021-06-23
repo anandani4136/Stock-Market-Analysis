@@ -5,16 +5,16 @@
       "title": "About this site",
       "description": "Some additional details about the website",
       "author": [],
-      "contents": "\n\n\n\n",
-      "last_modified": "2021-06-23T12:56:58-05:00"
+      "contents": "\nAbout Me\nGreetings! My Name is Ronit Anandani. I am a senior at Conant High School and I look towards exploring the world of Data Science using R. In fact, this website was made using R!\nAbout the Project\nThe Impact of COVID-19 on the Stock Market and its Sectors\nThis project analyzes the effects of COVID-19 upon stock market sectors like technology, commerce, and others\nGoals\nDemonstrate the immediate and long-term impacts of the pandemic\nUnderstand which markets had the impact that they did\nBased off of trends and reasoning\n\n“This is data science”\nPreceptor\n\nKane’s Free High School Data Science Bootcamp\n\n\n\n",
+      "last_modified": "2021-06-23T14:03:02-05:00"
     },
     {
       "path": "index.html",
       "title": "Stock Market Analysis",
-      "description": "Welcome to the website. I hope you enjoy it!\n",
+      "description": "The Stock Market is a wonderful way for us to undertsand the financial impacts that global events can have. However, closer observation can revealed the nuances in behavior in the stock market. Not all industries are craeted equal, so observing sectors of the market and their individuals reactions can help us understand how certain global events can be especially detrimental to specific industries, so as to inform investors of potential patterns in the market if such global events repeat in the future.\n\nThis website analyzes the effects of the COVID-19 Pandemic and the market reactions to different stages of the pandemic, such as when the pandemic was officially declared, and when vaccinations began for the Coronavirus disease. The dates utilized are approximate, but they provide insight into changes in the market at specific points in time during the pandemic. \n",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-06-23T12:56:59-05:00"
+      "last_modified": "2021-06-23T14:03:02-05:00"
     }
   ],
   "collections": []
