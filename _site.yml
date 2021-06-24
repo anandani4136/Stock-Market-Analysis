@@ -9,4 +9,6 @@ navbar:
       href: index.html
     - text: "About"
       href: about.html
+    - text: "Sources"
+      href: source_A.html
 output: distill::distill_article

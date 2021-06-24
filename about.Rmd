@@ -1,31 +1,73 @@
 ---
 title: "About this site"
 description: |
-  Some additional details about the website
+  Observing the Stock Market is a powerful way for us to understand the financial impacts that global events can have. However, closer observation can reveal the nuances in behavior in individual parts of the general stock market. Not all industries are created equal, so observing sectors of the market and their individual reactions can help us understand how certain global events can be especially detrimental to specific industries, so as to inform investors of potential patterns in the market if such global events repeat in the future.
+  
+  This website analyzes the effects of the COVID-19 Pandemic and the market reactions to different stages of the pandemic, such as when the pandemic was officially declared and when vaccinations began for the Coronavirus disease. The dates utilized are approximate, but they provide insight into changes in the market at specific points in time during the pandemic. 
+  
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+library(magick)
+library(shiny)
 ```
 
-## About Me
-
-Greetings! My Name is **Ronit Anandani**. I am a senior at Conant High School and I look towards exploring the world of Data Science using R. In fact, this website was made using R!
 
 ## About the Project
 *The Impact of COVID-19 on the Stock Market and its Sectors*
 
-This project analyzes the effects of COVID-19 upon stock market sectors like technology, commerce, and others
+This project visualizes the effects of COVID-19 upon different stock market sectors like healthcare, technology, and energy to give perspective on the impact of a pandemic on different sectors
+
+[GitHub Repository of this Project](https://github.com/anandani4136/Stock-Market-Analysis)
 
 ### Goals
 
-* Demonstrate the immediate and long-term impacts of the pandemic
+* Display the immediate and long-term impacts of the pandemic
 
-* Understand which markets had the impact that they did
+* Visualize the differences in each sector's performance after the pandemic
+
+* Compare the performance in sectors during different stages of the pandemic
+
+* Give insight into which sectors perform well/poorly during a pandemic
+
+* Understand potential causes for market performance
 
   + Based off of trends and reasoning
   
+### Calculations
+
+The data was split into 12 parts: the S&P 500 and the 11 GICS sectors
+
+```{r gics_img, fig.cap="A drawing representing the 11 GISC Sectors"}
+img(src="gics.png", width='100%')
+```
+
+The 5 highest weighted stocks in the S&P 500 by sector was chosen to represent each sector. Visit the sources page or click [here](https://anandani4136.github.io/Stock-Market-Analysis/source_A.html) to view which stocks specifically were used and how the list was determined.
+
+The mean of the prices of each set of stocks per sector for each day was calculated, and then the price data following August 1st, 2019 was compared relative to the price data on August 1st, 2019 to identify a percent change from that date. This was doen to demonstrate a shift in price over an extended period of time, relative to prices before the onset of the pandemic.
+
+The dates represented are approximate, but they intend to show a balanced set of data from before and during the pandemic, especially emphasizing the shift in performance from when COVID-19 was officially declared as a pandemic by the World Health Organization to when vaccinations for the virus were initially being distributed. 
+
+
+### How this was created
+
+The visualizations and data parsing was done using the R programming language. Libraries like gganimate and plotly were used to make the graphs animated and interactive, respectively. 
+
+The code can all be viewed [here](https://github.com/anandani4136/Stock-Market-Analysis), the GitHub repository for this project
+
+
+This website was created using Distill, which is a publication format for scientific and technical writing, native to the web. 
+
+Learn more about using Distill for R Markdown at <https://rstudio.github.io/distill>.
+
+## About Me
+
+Greetings! My Name is Ronit Anandani. I am a senior at James B Conant High School and I look towards exploring the world of data science, technology, and finance. I was intrigued on observing and visualizing the performance of specific sectors during the COVID-19 pandemic as the general market was too broad to provide insight into what types of stocks do well in such a scenario, and specific stocks are too specific to understand the general performance of a type of stock during such a scenario.
+
+This project is my final project in Preceptor Kane's Data Science Bootcamp, which was a summer course that taught elements of the *Gov 1005: Data* class at Harvard.
+
 “This is data science”  
-~ Preceptor
+~ [Preceptor](https://www.davidkane.info)
 
 [Kane’s Free High School Data Science Bootcamp](https://bootcamp.davidkane.info/)

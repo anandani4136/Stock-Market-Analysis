@@ -1,0 +1,111 @@
+---
+title: "Sources"
+description: |
+  In order to generate an accurate visualization of the data that needed to be represented, multiple sources of data were aggregated to generate an effective and accurate display of stock performance during the COVID-19 pandemic. Below are the names of the resources used to create this project.
+
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Yahoo Finance
+
+Yahoo Finance provided the data of stock market prices that was aggregated in the visualized data. The data of the following Stocks were used in generating the data:
+
+<p style="font-family: times, serif; font-size:11pt; font-style:italic">
+    NOTE: Click on the stock ticker symbol (AAPL, LIN, BRK-B) to view the data source page for each stock
+</p>
+
+* S&P 500
+    * [SPDR S&P 500 Trust](https://en.wikipedia.org/wiki/SPDR_S%26P_500_Trust_ETF) [(SPY)](https://finance.yahoo.com/quote/SPY/history?p=SPY)
+* Energy
+    * Exxon Mobil Corporation [(XOM)](https://finance.yahoo.com/quote/XOM/history?p=XOM)
+    * Chevron Corporation [(CVX)](https://finance.yahoo.com/quote/CVX/history?p=CVX)
+    * ConocoPhillips [(COP)](https://finance.yahoo.com/quote/COP/history?p=COP)
+    * EOG Resources, Inc. [(EOG)](https://finance.yahoo.com/quote/EOG/history?p=EOG)
+    * Schlumberger Limited [(SLB)](https://finance.yahoo.com/quote/SLB/history?p=SLB)
+* Materials
+    * Linde plc [(LIN)](https://finance.yahoo.com/quote/LIN/history?p=LIN)
+    * Air Products and Chemicals, Inc. [(APD)](https://finance.yahoo.com/quote/APD/history?p=APD)
+    * The Sherwin-Williams Company [(SHW)](https://finance.yahoo.com/quote/SHW/history?p=SHW)
+    * Ecolab Inc. [(ECL)](https://finance.yahoo.com/quote/ECL/history?p=ECL)
+    * Freeport-McMoRan Inc. [(FCX)](https://finance.yahoo.com/quote/FCX/history?p=FCX)
+* Industrials
+    * Honeywell International Inc. [(HON)](https://finance.yahoo.com/quote/HON/history?p=HON)
+    * United Parcel Service, Inc. [(UPS)](https://finance.yahoo.com/quote/UPS/history?p=UPS)
+    * Union Pacific Corporation [(UNP)](https://finance.yahoo.com/quote/UNP/history?p=UNP)
+    * The Boeing Company [(BA)](https://finance.yahoo.com/quote/BA/history?p=BA)
+    * Raytheon Technologies Corporation [(RTX)](https://finance.yahoo.com/quote/RTX/history?p=RTX)
+* Utilities
+    * NextEra Energy, Inc. [(NEE)](https://finance.yahoo.com/quote/NEE/history?p=NEE)
+    * Duke Energy Corporation [(DUK)](https://finance.yahoo.com/quote/DUK/history?p=DUK)
+    * The Southern Company [(SO)](https://finance.yahoo.com/quote/SO/history?p=SO)
+    * Dominion Energy, Inc. [(D)](https://finance.yahoo.com/quote/D/history?p=D)
+    * Exelon Corporation [(EXC)](https://finance.yahoo.com/quote/EXC/history?p=EXC)
+* Healthcare
+    * Johnson & Johnson [(JNJ)](https://finance.yahoo.com/quote/JNJ/history?p=JNJ)
+    * UnitedHealth Group Incorporated [(UNH)](https://finance.yahoo.com/quote/UNH/history?p=UNH)
+    * Pfizer Inc. [(PFE)](https://finance.yahoo.com/quote/PFE/history?p=PFE)
+    * AbbVie Inc. [(ABBV)](https://finance.yahoo.com/quote/ABBV/history?p=ABBV)
+    * Abbott Laboratories [(ABT)](https://finance.yahoo.com/quote/ABT/history?p=ABT)
+* Financials
+    * Berkshire Hathaway Inc. [(BRK-B)](https://finance.yahoo.com/quote/BRK-B/history?p=BRK-B)
+    * JPMorgan Chase & Co. [(JPM)](https://finance.yahoo.com/quote/JPM/history?p=JPM)
+    * Bank of America Corporation [(BAC)](https://finance.yahoo.com/quote/BAC/history?p=BAC)
+    * Wells Fargo & Company [(WFC)](https://finance.yahoo.com/quote/WFC/history?p=WFC)
+    * Citigroup Inc. [(C)](https://finance.yahoo.com/quote/C/history?p=C)
+* Consumer Discretionary
+    * Amazon.com, Inc. [(AMZN)](https://finance.yahoo.com/quote/AMZN/history?p=AMZN)
+    * Tesla, Inc. [(TSLA)](https://finance.yahoo.com/quote/TSLA/history?p=TSLA)
+    * The Home Depot, Inc. [(HD)](https://finance.yahoo.com/quote/HD/history?p=HD)
+    * McDonald's Corporation [(MCD)](https://finance.yahoo.com/quote/MCD/history?p=MCD)
+    * NIKE, Inc. [(NKE)](https://finance.yahoo.com/quote/NKE/history?p=NKE)
+* Consumer Staples
+    * The Procter & Gamble Company [(PG)](https://finance.yahoo.com/quote/PG/history?p=PG)
+    * The Coca-Cola Company [(KO)](https://finance.yahoo.com/quote/KO/history?p=KO)
+    * PepsiCo, Inc. [(PEP)](https://finance.yahoo.com/quote/PEP/history?p=PEP)
+    * Walmart Inc. [(WMT)](https://finance.yahoo.com/quote/WMT/history?p=WMT)
+    * Costco Wholesale Corporation [(COST)](https://finance.yahoo.com/quote/COST/history?p=COST)
+* Information Technology
+    * Apple Inc. [(AAPL)](https://finance.yahoo.com/quote/AAPL/history?p=AAPL)
+    * Microsoft Corporation [(MSFT)](https://finance.yahoo.com/quote/MSFT/history?p=MSFT)
+    * NVIDIA Corporation [(NVDA)](https://finance.yahoo.com/quote/NVDA/history?p=NVDA)
+    * Visa Inc. [(V)](https://finance.yahoo.com/quote/V/history?p=V)
+    * PayPal Holdings, Inc. [(PYPL)](https://finance.yahoo.com/quote/PYPL/history?p=PYPL)
+* Communication Services
+    * Facebook, Inc. [(FB)](https://finance.yahoo.com/quote/FB/history?p=FB)
+    * Alphabet Inc. [(GOOG)](https://finance.yahoo.com/quote/GOOG/history?p=GOOG)
+    * The Walt Disney Company [(DIS)](https://finance.yahoo.com/quote/DIS/history?p=DIS)
+    * Comcast Corporation [(CMCSA)](https://finance.yahoo.com/quote/CMCSA/history?p=CMCSA)
+    * Verizon Communications Inc. [(VZ)](https://finance.yahoo.com/quote/VZ/history?p=VZ)
+* Real Estate
+    * American Tower Corporation [(AMT)](https://finance.yahoo.com/quote/AMT/history?p=AMT)
+    * Prologis, Inc. [(PLD)](https://finance.yahoo.com/quote/PLD/history?p=PLD)
+    * Crown Castle International Corp. [(CCI)](https://finance.yahoo.com/quote/CCI/history?p=CCI)
+    * Equinix, Inc. [(EQIX)](https://finance.yahoo.com/quote/EQIX/history?p=EQIX)
+    * Public Storage [(PSA)](https://finance.yahoo.com/quote/PSA/history?p=PSA)
+
+The selection of the stocks above were selected by noting the 5 stocks in each GICS sector with the most weight on the S&P 500.
+
+The data captured a 4 year time period of performance for each of these stocks from June 21st, 2016 to June 21st, 2021, even though the data visualization only analyzes data starting from August 1st, 2019
+
+To view the calculations that were used to generate the data visualizations, go to the about page or click [here](https://anandani4136.github.io/Stock-Market-Analysis/about.html)
+
+## Wikipedia
+
+This [Wikipedia article](https://en.wikipedia.org/wiki/List_of_S%26P_500_companies) noted the GICS sector that each stock listed on the S&P 500 was associated with. This was combined with rankings on stocks with the greatest weight on the S&P 500 to select the stocks in the list above.
+
+[List of S&P 500 companies](https://en.wikipedia.org/wiki/List_of_S%26P_500_companies)
+
+## Others
+
+This website by MSCI gave a list of the Global Industry Classification Standard (GICS) structure or organization and provides insight into how the stock market is organized.
+[The Global Industry Classification Standard (GICS®)](https://www.msci.com/gics)
+
+
+A list provided by slickcharts.com listed the S&P 500 Companies by Weight, which assisted in sorting through the highest weighted stocks in each sector when combined with the Wikipedia article from above
+[S&P 500 Companies by Weight](https://www.slickcharts.com/sp500)
+
+

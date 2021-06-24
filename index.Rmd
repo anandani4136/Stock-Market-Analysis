@@ -1,13 +1,7 @@
 ---
 title: "Stock Market Analysis"
 description: |
-  The Stock Market is a wonderful way for us to understand the financial impacts that global events can have. However, closer observation can reveal the nuances in behavior in the stock market. Not all industries are created equal, so observing sectors of the market and their individual reactions can help us understand how certain global events can be especially detrimental to specific industries, so as to inform investors of potential patterns in the market if such global events repeat in the future.
-  
-  This website analyzes the effects of the COVID-19 Pandemic and the market reactions to different stages of the pandemic, such as when the pandemic was officially declared and when vaccinations began for the Coronavirus disease. The dates utilized are approximate, but they provide insight into changes in the market at specific points in time during the pandemic. 
-  
-  Below are visual rpresentations of increases in the market. The graphs represent the general performance of the S&P 500 the 11 sectors based on the Global Industry Classification Standard (GICS). Note the shift in performance after the declaration of the pandemic and the contrast in performce in the Energy and Information technology Sectors
-  
-  
+  COVID-19 and its Impact on Sectors of the Stock Market
 site: distill::distill_website
 ---
 
@@ -23,6 +17,9 @@ library(grid)
 library(gridExtra)
 library(magick)
 library(plotly)
+library(shiny)
+library(caTools)
+library(cowplot)
 # Learn more about creating websites with Distill at:
 # https://rstudio.github.io/distill/website.html
 
@@ -31,8 +28,8 @@ library(plotly)
 
 ```
 
-```{r}
-sp500_data <- read.csv("SPY.csv") %>% 
+```{r sp500_data}
+sp500_data <- read.csv("data_files/SPY.csv") %>% 
   filter(ymd(Date) > ymd("2019-07-31")) %>%
   mutate(avg_val = ((Open + High + Low + Close)/4)) %>% 
   mutate(avg_price = ((avg_val/(avg_val[1]))-1)*100)
@@ -44,12 +41,10 @@ sp500 <- sp500_data %>% filter(ymd(Date) > ymd("2019-07-31")) %>%
   scale_x_discrete(breaks = c("2020-03-11","2020-12-23"), labels = c("COVID-19 Pandemic Declared","COVID-19 Vaccination Begins"))+
   transition_reveal(Date_date)+transition_time(Date_date)+ 
   labs(title = "S&P 500",subtitle = "Date: {frame_time}", x = "", y = "Average Price Increase (%)", caption="Source: Yahoo Finance", color = "COVID-19 Time Frame")+
-  shadow_mark(alpha = 0.7, size = 1.1)+theme(text = element_text(size = 6))
+  shadow_mark(alpha = 0.7, size = 1.1)+theme(text = element_text(size = 8))
 ```
 
-
-
-```{r}
+```{r sector_data}
 merge_stocks <- function(a,b,c,d,e,type){
   a_data <- read.csv(a) %>% mutate(avg_price_a = ((Open + High + Low + Close)/4))
   b_data <- read.csv(b) %>% mutate(avg_price_b = ((Open + High + Low + Close)/4))
@@ -79,52 +74,43 @@ make_covid_graph <- function(data_set, titleName){
   #+ylim(-150,150)
 }
 
-#aapl_data <- read.csv("AAPL.csv") %>% mutate(avg_price_AAPL = ((Open + High + Low + Close)/4))
-#msft_data <- read.csv("MSFT.csv") %>% mutate(avg_price_MSFT = ((Open + High + Low + Close)/4))
-#goog_data <- read.csv("GOOG.csv") %>% mutate(avg_price_GOOG = ((Open + High + Low + Close)/4))
-#amzn_data <- read.csv("AMZN.csv") %>% mutate(avg_price_AMZN = ((Open + High + Low + Close)/4))
-#fb_data <- read.csv("FB.csv") %>% mutate(avg_price_FB = ((Open + High + Low + Close)/4))
-#x <- merge(aapl_data, msft_data, by = "Date")
-#y <- merge(amzn_data, goog_data, by = "Date")
-#z <- merge(x, y, by = "Date")
-#tech_data <- merge(z, fb_data, by = "Date") %>% mutate(avg_price = ((avg_price_AAPL+avg_price_MSFT+avg_price_GOOG+avg_price_AMZN+avg_price_FB)/5))
-energy_data <- merge_stocks("XOM.csv","CVX.csv","COP.csv","EOG.csv","SLB.csv","Date")
+energy_data <- merge_stocks("data_files/XOM.csv","data_files/CVX.csv","data_files/COP.csv","data_files/EOG.csv","data_files/SLB.csv","Date")
 energy <- make_covid_graph(energy_data, "Energy")
 
-material_data <- merge_stocks("LIN.csv","APD.csv","SHW.csv","ECL.csv","FCX.csv","Date")
+material_data <- merge_stocks("data_files/LIN.csv","data_files/APD.csv","data_files/SHW.csv","data_files/ECL.csv","data_files/FCX.csv","Date")
 materials <- make_covid_graph(material_data, "Materials")
 
-industry_data <- merge_stocks("HON.csv","UPS.csv","UNP.csv","BA.csv","RTX.csv","Date")
+industry_data <- merge_stocks("data_files/HON.csv","data_files/UPS.csv","data_files/UNP.csv","data_files/BA.csv","data_files/RTX.csv","Date")
 industrials <- make_covid_graph(industry_data, "Industrials")
 
-util_data <- merge_stocks("NEE.csv","DUK.csv","SO.csv","D.csv","EXC.csv","Date")
+util_data <- merge_stocks("data_files/NEE.csv","data_files/DUK.csv","data_files/SO.csv","data_files/D.csv","data_files/EXC.csv","Date")
 utilities <- make_covid_graph(util_data, "Utilities")
 
-health_data <- merge_stocks("JNJ.csv","UNH.csv","PFE.csv","ABBV.csv","ABT.csv","Date")
+health_data <- merge_stocks("data_files/JNJ.csv","data_files/UNH.csv","data_files/PFE.csv","data_files/ABBV.csv","data_files/ABT.csv","Date")
 healthCare <- make_covid_graph(health_data, "Healthcare")
 
-finance_data <- merge_stocks("BRK-B.csv","JPM.csv","BAC.csv","WFC.csv","C.csv","Date")
+finance_data <- merge_stocks("data_files/BRK-B.csv","data_files/JPM.csv","data_files/BAC.csv","data_files/WFC.csv","data_files/C.csv","Date")
 financials <- make_covid_graph(finance_data, "Financials")
 
-consDisc_data <- merge_stocks("AMZN.csv","TSLA.csv","HD.csv","MCD.csv","NKE.csv","Date")
+consDisc_data <- merge_stocks("data_files/AMZN.csv","data_files/TSLA.csv","data_files/HD.csv","data_files/MCD.csv","data_files/NKE.csv","Date")
 consumerDisc <- make_covid_graph(consDisc_data, "Consumer Discretionary")
 
-consStaple_data <- merge_stocks("PG.csv","KO.csv","PEP.csv","WMT.csv","COST.csv","Date")
+consStaple_data <- merge_stocks("data_files/PG.csv","data_files/KO.csv","data_files/PEP.csv","data_files/WMT.csv","data_files/COST.csv","Date")
 consumerStaple <- make_covid_graph(consStaple_data, "Consumer Staples")
 
-tech_data <- merge_stocks("AAPL.csv","MSFT.csv","NVDA.csv","V.csv","PYPL.csv","Date")
+tech_data <- merge_stocks("data_files/AAPL.csv","data_files/MSFT.csv","data_files/NVDA.csv","data_files/V.csv","data_files/PYPL.csv","Date")
 infoTech <- make_covid_graph(tech_data, "Information Technology")
 
-commserv_data <- merge_stocks("FB.csv","GOOG.csv","DIS.csv","CMCSA.csv","VZ.csv","Date")
+commserv_data <- merge_stocks("data_files/FB.csv","data_files/GOOG.csv","data_files/DIS.csv","data_files/CMCSA.csv","data_files/VZ.csv","Date")
 commServices <- make_covid_graph(commserv_data, "Communication Services")
 
-realest_data <- merge_stocks("AMT.csv","PLD.csv","CCI.csv","EQIX.csv","PSA.csv","Date")
+realest_data <- merge_stocks("data_files/AMT.csv","data_files/PLD.csv","data_files/CCI.csv","data_files/EQIX.csv","data_files/PSA.csv","Date")
 realEstate <- make_covid_graph(realest_data, "Real Estate")
 
 ```
 
-```{r, include=FALSE}
-sp5 <- animate(sp500, width = 5, height =3, units = "in", res=300)
+```{r gif_maker, include=FALSE}
+sp5 <- animate(sp500, width = 5, height =2.5, units = "in", res=300)
 anim_save("smp.gif", sp5)
 
 nrg <- animate(energy, width = 5, height =3, units = "in", res=150)
@@ -160,45 +146,97 @@ anim_save("commServ.gif", cs)
 re <- animate(realEstate, width = 5, height = 3, units = "in", res=150)
 anim_save("realEstate.gif", re)
 ```
-```{r, include=FALSE}
-nsp <- sp500_data %>% mutate(type = "S&P 500") %>% select(Date, avg_price, type) %>% filter(ymd(Date) > ymd("2019-07-31"))
-eng <- energy_data %>% mutate(type = "Energy") %>% select(Date, avg_price, type) %>% filter(ymd(Date) > ymd("2019-07-31")) 
-mate <- material_data %>% mutate(type = "Materials") %>% select(Date, avg_price, type) %>% filter(ymd(Date) > ymd("2019-07-31")) 
-indu <- industry_data %>% mutate(type = "Industry") %>% select(Date, avg_price, type) %>% filter(ymd(Date) > ymd("2019-07-31")) 
-utl <- util_data %>% mutate(type = "Utilities") %>% select(Date, avg_price, type) %>% filter(ymd(Date) > ymd("2019-07-31")) 
-hec <- health_data %>% mutate(type = "Health Care") %>% select(Date, avg_price, type) %>% filter(ymd(Date) > ymd("2019-07-31")) 
-fcd <- finance_data %>% mutate(type = "Financials") %>% select(Date, avg_price, type) %>% filter(ymd(Date) > ymd("2019-07-31")) 
-csd <- consDisc_data %>% mutate(type = "Consumer Discretionary") %>% select(Date, avg_price, type) %>% filter(ymd(Date) > ymd("2019-07-31")) 
-css <- consStaple_data %>% mutate(type = "Consumer Staples") %>% select(Date, avg_price, type) %>% filter(ymd(Date) > ymd("2019-07-31")) 
-itd <- tech_data %>% mutate(type = "Information Technology") %>% select(Date, avg_price, type) %>% filter(ymd(Date) > ymd("2019-07-31")) 
-cdd <- commserv_data %>% mutate(type = "Communication Services") %>% select(Date, avg_price, type) %>% filter(ymd(Date) > ymd("2019-07-31")) 
-red <- realest_data %>% mutate(type = "Real Estate") %>% select(Date, avg_price, type) %>% filter(ymd(Date) > ymd("2019-07-31")) 
+
+```{r compare_graph, include=FALSE}
+nsp <- sp500_data %>% mutate(type = "S&P 500") %>% mutate(Percent_Increase = avg_price) %>% select(Date, Percent_Increase, type) %>% filter(ymd(Date) > ymd("2019-07-31"))
+eng <- energy_data %>% mutate(type = "Energy") %>% mutate(Percent_Increase = avg_price) %>% select(Date, Percent_Increase, type) %>% filter(ymd(Date) > ymd("2019-07-31")) 
+mate <- material_data %>% mutate(type = "Materials") %>% mutate(Percent_Increase = avg_price) %>% select(Date, Percent_Increase, type) %>% filter(ymd(Date) > ymd("2019-07-31")) 
+indu <- industry_data %>% mutate(type = "Industry") %>% mutate(Percent_Increase = avg_price) %>% select(Date, Percent_Increase, type) %>% filter(ymd(Date) > ymd("2019-07-31")) 
+utl <- util_data %>% mutate(type = "Utilities") %>% mutate(Percent_Increase = avg_price) %>% select(Date, Percent_Increase, type) %>% filter(ymd(Date) > ymd("2019-07-31")) 
+hec <- health_data %>% mutate(type = "Health Care") %>% mutate(Percent_Increase = avg_price) %>% select(Date, Percent_Increase, type) %>% filter(ymd(Date) > ymd("2019-07-31")) 
+fcd <- finance_data %>% mutate(type = "Financials") %>% mutate(Percent_Increase = avg_price) %>% select(Date, Percent_Increase, type) %>% filter(ymd(Date) > ymd("2019-07-31")) 
+csd <- consDisc_data %>% mutate(type = "Consumer Discretionary") %>% mutate(Percent_Increase = avg_price) %>% select(Date, Percent_Increase, type) %>% filter(ymd(Date) > ymd("2019-07-31")) 
+css <- consStaple_data %>% mutate(type = "Consumer Staples") %>% mutate(Percent_Increase = avg_price) %>% select(Date, Percent_Increase, type) %>% filter(ymd(Date) > ymd("2019-07-31")) 
+itd <- tech_data %>% mutate(type = "Information Technology") %>% mutate(Percent_Increase = avg_price) %>% select(Date, Percent_Increase, type) %>% filter(ymd(Date) > ymd("2019-07-31")) 
+cdd <- commserv_data %>% mutate(type = "Communication Services") %>% mutate(Percent_Increase = avg_price) %>% select(Date, Percent_Increase, type) %>% filter(ymd(Date) > ymd("2019-07-31")) 
+red <- realest_data %>% mutate(type = "Real Estate") %>% mutate(Percent_Increase = avg_price) %>% select(Date, Percent_Increase, type) %>% filter(ymd(Date) > ymd("2019-07-31")) 
 
 market_compare <- ggplot()+
-  geom_area(aes(x=Date, y=avg_price, group = 1, label="S&P 500"), fill="black", alpha=0.4, data = nsp)+
-  geom_area(aes(x=Date, y=avg_price, group = 2, label="Energy"), fill="green", alpha=0.4, data = eng)+
-  geom_area(aes(x=Date, y=avg_price, group = 3, label="Materials"), fill="brown", alpha=0.4, data = mate)+
-  geom_area(aes(x=Date, y=avg_price, group = 4, label="Industry"), fill="gray", alpha=0.4, data = indu)+
-  geom_area(aes(x=Date, y=avg_price, group = 5, label="Utilities"), fill="orange", alpha=0.4, data = utl)+
-  geom_area(aes(x=Date, y=avg_price, group = 6, label="Healthcare"), fill="red", alpha=0.4, data = hec)+
-  geom_area(aes(x=Date, y=avg_price, group = 7, label="Financials"), fill="purple", alpha=0.4, data = fcd)+
-  geom_area(aes(x=Date, y=avg_price, group = 8, label="Consumer Discretionary"), fill="yellow", alpha=0.4, data = csd)+
-  geom_area(aes(x=Date, y=avg_price, group = 9, label="Consumer Staples"), fill="pink", alpha=0.4, data = css)+
-  geom_area(aes(x=Date, y=avg_price, group = 10, label="Information Technology"), fill="blue", alpha=0.4, data = itd)+
-  geom_area(aes(x=Date, y=avg_price, group = 11, label="Communication Services"), fill="red", alpha=0.4, data = cdd)+
-  geom_area(aes(x=Date, y=avg_price, group = 12, label="Real Estate"), fill="violet", alpha=0.4, data = red)+
+  geom_area(aes(x=Date, y=Percent_Increase, group = 1, label="S&P 500", text = paste("Date:",Date,"\n","Price Increase (%):",Percent_Increase,"\n","GICS Sector:","S&P 500")), fill="black", color = "black", alpha=0.4, data = nsp)+
+  geom_area(aes(x=Date, y=Percent_Increase, group = 2, label="Energy", text = paste("Date:",Date,"\n","Price Increase (%):",Percent_Increase,"\n","GICS Sector:","Energy")), fill="green", alpha=0.4, data = eng)+
+  geom_area(aes(x=Date, y=Percent_Increase, group = 3, label="Materials", text = paste("Date:",Date,"\n","Price Increase (%):",Percent_Increase,"\n","GICS Sector:","Materials")), fill="brown", alpha=0.4, data = mate)+
+  geom_area(aes(x=Date, y=Percent_Increase, group = 4, label="Industry", text = paste("Date:",Date,"\n","Price Increase (%):",Percent_Increase,"\n","GICS Sector:","Industry")), fill="gray", color = "black", alpha=0.4, data = indu)+
+  geom_area(aes(x=Date, y=Percent_Increase, group = 5, label="Utilities", text = paste("Date:",Date,"\n","Price Increase (%):",Percent_Increase,"\n","GICS Sector:","Utilities")), fill="orange", alpha=0.4, data = utl)+
+  geom_area(aes(x=Date, y=Percent_Increase, group = 6, label="Healthcare", text = paste("Date:",Date,"\n","Price Increase (%):",Percent_Increase,"\n","GICS Sector:","Healthcare")), fill="darkcyan", color = "black", alpha=0.4, data = hec)+
+  geom_area(aes(x=Date, y=Percent_Increase, group = 7, label="Financials", text = paste("Date:",Date,"\n","Price Increase (%):",Percent_Increase,"\n","GICS Sector:","Financials")), fill="purple", alpha=0.4, data = fcd)+
+  geom_area(aes(x=Date, y=Percent_Increase, group = 8, label="Consumer Discretionary", text = paste("Date:",Date,"\n","Price Increase (%):",Percent_Increase,"\n","GICS Sector:","Consumer Discretionary")), fill="yellow", color = "black", alpha=0.4, data = csd)+
+  geom_area(aes(x=Date, y=Percent_Increase, group = 9, label="Consumer Staples", text = paste("Date:",Date,"\n","Price Increase (%):",Percent_Increase,"\n","GICS Sector:","Consumer Staples")), fill="pink", color = "black", alpha=0.4, data = css)+
+  geom_area(aes(x=Date, y=Percent_Increase, group = 10, label="Information Technology", text = paste("Date:",Date,"\n","Price Increase (%):",Percent_Increase,"\n","GICS Sector:","Information Technology")), fill="blue", alpha=0.4, data = itd)+
+  geom_area(aes(x=Date, y=Percent_Increase, group = 11, label="Communication Services", text = paste("Date:",Date,"\n","Price Increase (%):",Percent_Increase,"\n","GICS Sector:","Communication Services")), fill="red", color = "black", alpha=0.4, data = cdd)+
+  geom_area(aes(x=Date, y=Percent_Increase, group = 12, label="Real Estate", text = paste("Date:",Date,"\n","Price Increase (%):",Percent_Increase,"\n","GICS Sector:","Real Estate")), fill="violet", color = "black", alpha=0.4, data = red)+
   scale_x_discrete(breaks = c("2020-03-11","2020-12-23"), labels = c("COVID-19 Pandemic Declared","COVID-19 Vaccination Begins"))+
-  labs(title = "General Market Comparison (S&P 500 vs. Each GISC Sector)",subtitle = "Information Technology rose significantly", x = "", y = "Average Price Increase (%)", caption="Source: Yahoo Finance", color = "COVID-19 Time Frame")
+  labs(title = "General Market Comparison (S&P 500 vs. Each GICS Sector)",subtitle = "Information Technology rose significantly", x = "", y = "Average Price Increase (%)", caption="Source: Yahoo Finance", color = "COVID-19 Time Frame")
 ```
 
-![](smp.gif){width=90%}
-![](energy.gif){width=45%} ![](materials.gif){width=45%}
-![](industrials.gif){width=45%} ![](utilities.gif){width=45%}
-![](healthcare.gif){width=45%} ![](financials.gif){width=45%}
-![](consumerDisc.gif){width=45%} ![](consumerStaple.gif){width=45%}
-![](infoTech.gif){width=45%} ![](commServ.gif){width=45%}
-![](realEstate.gif){width=45%}
-```{r}
-ggplotly(market_compare)
+## Individual Sector Visualization
+
+The following data represents the average percent change in value of the S&P 500 and its 11 GICS Sectors from before and during the pandemic. Significant events during the timeline of the pandemic are noted in the X-axis.
+
+```{r smp_graph, echo=FALSE, fig.cap="caption",fig.show='hold',fig.align='center'}
+img(src="smp.gif", align="left", width='100%')
+```
+
+```{r energy_graph, echo=FALSE, fig.cap="caption",fig.show='hold',fig.align='center'}
+img(src="energy.gif", align="right", width='56%')
+```
+
+```{r materials_graph, echo=FALSE, ,fig.cap="caption",fig.show='hold',fig.align='center'}
+img(src="materials.gif", align="left", width='56%')
+```
+
+```{r industrials_graph, echo=FALSE, ,fig.cap="caption",fig.show='hold',fig.align='center'}
+img(src="industrials.gif", align="right", width='56%')
+```
+
+```{r utilities_graph, echo=FALSE, ,fig.cap="caption",fig.show='hold',fig.align='center'}
+img(src="utilities.gif", align="left", width='56%')
+```
+
+```{r healthcare_graph, echo=FALSE, ,fig.cap="caption",fig.show='hold',fig.align='center'}
+img(src="healthCare.gif", align="right", width='56%')
+```
+
+```{r finance_graph, echo=FALSE, ,fig.cap="caption",fig.show='hold',fig.align='center'}
+img(src="financials.gif", align="left", width='56%')
+```
+
+```{r discretionary_graph, echo=FALSE, ,fig.cap="caption",fig.show='hold',fig.align='center'}
+img(src="consumerDisc.gif", align="right", width='56%')
+```
+
+```{r staple_graph, echo=FALSE, ,fig.cap="caption",fig.show='hold',fig.align='center'}
+img(src="consumerStaple.gif", align="left", width='56%')
+```
+
+```{r tech_graph, echo=FALSE, ,fig.cap="caption",fig.show='hold',fig.align='center'}
+img(src="infoTech.gif", align="right", width='56%')
+```
+
+```{r communication_graph, echo=FALSE, ,fig.cap="caption",fig.show='hold',fig.align='center'}
+img(src="commServ.gif", align="left", width='56%')
+```
+
+```{r realEstate_graph, echo=FALSE, ,fig.cap="caption",fig.show='hold',fig.align='center'}
+img(src="realEstate.gif", align="right", width='56%')
+```
+
+## Collective Comparison
+
+The following data represents the effects of the COVID-19 pandemic on the average percent change in value of the S&P 500 and its 11 GICS Sectors along the same scale. 
+
+Feel free to hover over interactive graph and view the data at a deeper level.
+
+```{r comparison_graph, layout = "l-page"}
+ggplotly(market_compare, tooltip = "text")
 ```
 
