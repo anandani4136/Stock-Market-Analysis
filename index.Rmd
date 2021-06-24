@@ -111,40 +111,40 @@ realEstate <- make_covid_graph(realest_data, "Real Estate")
 
 ```{r gif_maker, include=FALSE}
 sp5 <- animate(sp500, width = 5, height =2.5, units = "in", res=300)
-anim_save("smp.gif", sp5)
+anim_save("data_files/smp.gif", sp5)
 
 nrg <- animate(energy, width = 5, height =3, units = "in", res=150)
-anim_save("energy.gif", nrg)
+anim_save("data_files/energy.gif", nrg)
 
 mat <- animate(materials, width = 5, height = 3, units = "in", res=150)
-anim_save("materials.gif", mat)
+anim_save("data_files/materials.gif", mat)
 
 ind <- animate(industrials, width = 5, height = 3, units = "in", res=150)
-anim_save("industrials.gif", ind)
+anim_save("data_files/industrials.gif", ind)
 
 util <- animate(utilities, width = 5, height = 3, units = "in", res=150)
-anim_save("utilities.gif", util)
+anim_save("data_files/utilities.gif", util)
 
 hc <- animate(healthCare, width = 5, height = 3, units = "in", res=150)
-anim_save("healthCare.gif", hc)
+anim_save("data_files/healthCare.gif", hc)
 
 fin <- animate(financials, width = 5, height = 3, units = "in", res=150)
-anim_save("financials.gif", fin)
+anim_save("data_files/financials.gif", fin)
 
 cDc <- animate(consumerDisc, width = 5, height = 3, units = "in", res=150)
-anim_save("consumerDisc.gif", cDc)
+anim_save("data_files/consumerDisc.gif", cDc)
 
 cSt <- animate(consumerStaple, width = 5, height = 3, units = "in", res=150)
-anim_save("consumerStaple.gif", cSt)
+anim_save("data_files/consumerStaple.gif", cSt)
 
 it <- animate(infoTech, width = 5, height = 3, units = "in", res=150)
-anim_save("infoTech.gif", it)
+anim_save("data_files/infoTech.gif", it)
 
 cs <- animate(commServices, width = 5, height = 3, units = "in", res=150)
-anim_save("commServ.gif", cs)
+anim_save("data_files/commServ.gif", cs)
 
 re <- animate(realEstate, width = 5, height = 3, units = "in", res=150)
-anim_save("realEstate.gif", re)
+anim_save("data_files/realEstate.gif", re)
 ```
 
 ```{r compare_graph, include=FALSE}
@@ -183,51 +183,51 @@ market_compare <- ggplot()+
 The following data represents the average percent change in value of the S&P 500 and its 11 GICS Sectors from before and during the pandemic. Significant events during the timeline of the pandemic are noted in the X-axis.
 
 ```{r smp_graph, echo=FALSE, fig.cap="caption",fig.show='hold',fig.align='center'}
-img(src="smp.gif", align="left", width='100%')
+img(src="data_files/smp.gif", align="left", width='100%')
 ```
 
 ```{r energy_graph, echo=FALSE, fig.cap="caption",fig.show='hold',fig.align='center'}
-img(src="energy.gif", align="right", width='56%')
+img(src="data_files/energy.gif", align="right", width='56%')
 ```
 
 ```{r materials_graph, echo=FALSE, ,fig.cap="caption",fig.show='hold',fig.align='center'}
-img(src="materials.gif", align="left", width='56%')
+img(src="data_files/materials.gif", align="left", width='56%')
 ```
 
 ```{r industrials_graph, echo=FALSE, ,fig.cap="caption",fig.show='hold',fig.align='center'}
-img(src="industrials.gif", align="right", width='56%')
+img(src="data_files/industrials.gif", align="right", width='56%')
 ```
 
 ```{r utilities_graph, echo=FALSE, ,fig.cap="caption",fig.show='hold',fig.align='center'}
-img(src="utilities.gif", align="left", width='56%')
+img(src="data_files/utilities.gif", align="left", width='56%')
 ```
 
 ```{r healthcare_graph, echo=FALSE, ,fig.cap="caption",fig.show='hold',fig.align='center'}
-img(src="healthCare.gif", align="right", width='56%')
+img(src="data_files/healthCare.gif", align="right", width='56%')
 ```
 
 ```{r finance_graph, echo=FALSE, ,fig.cap="caption",fig.show='hold',fig.align='center'}
-img(src="financials.gif", align="left", width='56%')
+img(src="data_files/financials.gif", align="left", width='56%')
 ```
 
 ```{r discretionary_graph, echo=FALSE, ,fig.cap="caption",fig.show='hold',fig.align='center'}
-img(src="consumerDisc.gif", align="right", width='56%')
+img(src="data_files/consumerDisc.gif", align="right", width='56%')
 ```
 
 ```{r staple_graph, echo=FALSE, ,fig.cap="caption",fig.show='hold',fig.align='center'}
-img(src="consumerStaple.gif", align="left", width='56%')
+img(src="data_files/consumerStaple.gif", align="left", width='56%')
 ```
 
 ```{r tech_graph, echo=FALSE, ,fig.cap="caption",fig.show='hold',fig.align='center'}
-img(src="infoTech.gif", align="right", width='56%')
+img(src="data_files/infoTech.gif", align="right", width='56%')
 ```
 
 ```{r communication_graph, echo=FALSE, ,fig.cap="caption",fig.show='hold',fig.align='center'}
-img(src="commServ.gif", align="left", width='56%')
+img(src="data_files/commServ.gif", align="left", width='56%')
 ```
 
 ```{r realEstate_graph, echo=FALSE, ,fig.cap="caption",fig.show='hold',fig.align='center'}
-img(src="realEstate.gif", align="right", width='56%')
+img(src="data_files/realEstate.gif", align="right", width='56%')
 ```
 
 ## Collective Comparison

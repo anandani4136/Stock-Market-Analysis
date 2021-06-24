@@ -40,7 +40,7 @@ This project visualizes the effects of COVID-19 upon different stock market sect
 The data was split into 12 parts: the S&P 500 and the 11 GICS sectors
 
 ```{r gics_img, fig.cap="A drawing representing the 11 GISC Sectors"}
-img(src="gics.png", width='100%')
+img(src="data_files/gics.png", width='100%')
 ```
 
 The 5 highest weighted stocks in the S&P 500 by sector was chosen to represent each sector. Visit the sources page or click [here](https://anandani4136.github.io/Stock-Market-Analysis/source_A.html) to view which stocks specifically were used and how the list was determined.
